@@ -57,11 +57,9 @@ func (d *DiscountServiceImpl) CalculateCartDiscounts(
 	}
 
 	// Step 2: Voucher
-	if customer.Tier == "gold" {
-		if voucherDiscount, ok := discountRepository.ApplyVoucherDiscount("SUPER69", finalPrice, db.Vouchers); ok {
-			appliedDiscounts["Voucher: SUPER69"] = voucherDiscount
-			finalPrice -= voucherDiscount
-		}
+	if voucherDiscount, ok := discountRepository.ApplyVoucherDiscount("SUPER69", finalPrice, db.Vouchers); ok {
+		appliedDiscounts["Voucher: SUPER69"] = voucherDiscount
+		finalPrice -= voucherDiscount
 	}
 
 	// Step 3: Bank Offer
