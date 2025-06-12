@@ -89,6 +89,10 @@ func (d *DiscountServiceImpl) ValidateDiscountCode(
 		return false, fmt.Errorf("voucher %s not found", code)
 	}
 
+	if len(voucher.AllowedCustomerTiers) > 0 && !slices.Contains(voucher.AllowedCustomerTiers, customer.Tier) {
+		return false, fmt.Errorf("voucher is not valid for customer tier: %v", customer.Tier)
+	}
+
 	// 2. Check brand/category exclusions
 	for _, item := range cartItems {
 		brand := item.Product.Brand
