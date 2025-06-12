@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/avani-bit/e-commerce-backend/internal/database"
-	testdata "github.com/avani-bit/e-commerce-backend/testData"
+	"github.com/avani-bit/e-commerce-backend/testdata"
 )
 
 func main() {
