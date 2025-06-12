@@ -42,10 +42,11 @@ func LoadFakeData() {
 	// ----- Vouchers -----
 	db.Vouchers = map[string]models.Voucher{
 		"SUPER69": {
-			Code:               "SUPER69",
-			Percent:            float64(69),
-			ExcludedBrands:     []string{"Nike"},
-			ExcludedCategories: []string{"Shoes"},
+			Code:                 "SUPER69",
+			Percent:              float64(69),
+			ExcludedBrands:       []string{"Nike"},
+			ExcludedCategories:   []string{"Shoes"},
+			AllowedCustomerTiers: []models.CustomerTier{models.CustomerTierGold, models.CustomerTierDiamond},
 		},
 	}
 

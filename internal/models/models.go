@@ -2,10 +2,18 @@ package models
 
 type BrandTier string
 
+type CustomerTier string
+
 const (
 	BrandTierPremium BrandTier = "premium"
 	BrandTierRegular BrandTier = "regular"
 	BrandTierBudget  BrandTier = "budget"
+)
+
+const (
+	CustomerTierSilver  CustomerTier = "silver"
+	CustomerTierGold                 = "gold"
+	CustomerTierDiamond              = "diamond"
 )
 
 type Product struct {
@@ -25,10 +33,11 @@ type Offer struct {
 }
 
 type Voucher struct {
-	Code               string
-	Percent            float64
-	ExcludedBrands     []string
-	ExcludedCategories []string
+	Code                 string
+	Percent              float64
+	ExcludedBrands       []string
+	ExcludedCategories   []string
+	AllowedCustomerTiers []CustomerTier
 }
 
 type CartItem struct {
@@ -51,6 +60,6 @@ type DiscountedPrice struct {
 }
 
 type CustomerProfile struct {
-	ID   string `json:"id"`
-	Tier string `json:"tier"`
+	ID   string       `json:"id"`
+	Tier CustomerTier `json:"tier"`
 }
