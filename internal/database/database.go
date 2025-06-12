@@ -9,24 +9,9 @@ import (
 
 type InMemoryDB struct {
 	Products map[string]models.Product
-	Vouchers map[string]Voucher // VoucherCode -> Discount %
-	Offers   map[string]Offer   // Brand/Category/Bank -> Offer
+	Vouchers map[string]models.Voucher // VoucherCode -> Discount %
+	Offers   map[string]models.Offer   // Brand/Category/Bank -> Offer
 	mutex    sync.RWMutex
-}
-
-type Offer struct {
-	Name      string
-	Percent   float64
-	Target    string // brand/category/bank
-	Condition func(models.Product) bool
-}
-
-type Voucher struct {
-	Code               string
-	Percent            float64
-	ExcludedBrands     []string
-	ExcludedCategories []string
-	AllowedTiers       []models.BrandTier
 }
 
 var runtimeDB *InMemoryDB
@@ -34,8 +19,8 @@ var runtimeDB *InMemoryDB
 func InitDB() {
 	runtimeDB = &InMemoryDB{
 		Products: make(map[string]models.Product),
-		Vouchers: make(map[string]Voucher),
-		Offers:   make(map[string]Offer),
+		Vouchers: make(map[string]models.Voucher),
+		Offers:   make(map[string]models.Offer),
 	}
 }
 
