@@ -17,6 +17,21 @@ type Product struct {
 	CurrentPrice float32   `json:"current_price"`
 }
 
+type Offer struct {
+	Name      string
+	Percent   float64
+	Target    string // brand/category/bank
+	Condition func(Product) bool
+}
+
+type Voucher struct {
+	Code               string
+	Percent            float64
+	ExcludedBrands     []string
+	ExcludedCategories []string
+	AllowedTiers       []BrandTier
+}
+
 type CartItem struct {
 	Product  Product `json:"product"`
 	Quantity int     `json:"quantity"`
