@@ -50,5 +50,26 @@ func TestCalculateCartDiscounts(t *testing.T) {
 }
 
 func TestValidateDiscountCode(t *testing.T) {
-	// Add table-driven tests here
+	database.InitDB()
+	testdata.LoadFakeData()
+	svc := NewDiscountService()
+	ctx := context.Background()
+
+	customer := models.CustomerProfile{ID: "cust_001", Tier: "gold"}
+
+	cart := []models.CartItem{
+		{Product: database.GetDB().Products["prod_001"], Quantity: 1},
+	}
+
+	ok, err := svc.ValidateDiscountCode(ctx, "SUPER69", cart, customer)
+	assert.True(t, ok)
+	assert.NoError(t, err)
+
+	// Negative case
+	cart = []models.CartItem{
+		{Product: database.GetDB().Products["prod_002"], Quantity: 1},
+	}
+	ok, err = svc.ValidateDiscountCode(ctx, "SUPER69", cart, customer)
+	assert.False(t, ok, "voucher not found")
+	assert.ErrorContains(t, err, "voucher not allowed for selected brand")
 }

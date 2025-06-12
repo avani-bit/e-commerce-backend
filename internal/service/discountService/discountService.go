@@ -3,9 +3,11 @@ package discountService
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/avani-bit/e-commerce-backend/internal/database"
 	"github.com/avani-bit/e-commerce-backend/internal/models"
 	"github.com/avani-bit/e-commerce-backend/internal/repository/discountRepository"
+	"slices"
 )
 
 type DiscountService interface {
@@ -79,10 +81,28 @@ func (d *DiscountServiceImpl) CalculateCartDiscounts(
 
 func (d *DiscountServiceImpl) ValidateDiscountCode(
 	_ context.Context,
-	_ string,
-	_ []models.CartItem,
-	_ models.CustomerProfile,
+	code string,
+	cartItems []models.CartItem,
+	customer models.CustomerProfile,
 ) (bool, error) {
-	// TODO: Implement ValidateDiscountCode
-	return false, errors.New("unimplemented")
+	db := database.GetDB()
+	voucher, ok := db.Vouchers[code]
+	if !ok {
+		return false, fmt.Errorf("voucher %s not found", code)
+	}
+
+	// 2. Check brand/category exclusions
+	for _, item := range cartItems {
+		brand := item.Product.Brand
+		category := item.Product.Category
+
+		if slices.Contains(voucher.ExcludedBrands, brand) {
+			return false, fmt.Errorf("voucher not valid for brand: %s", brand)
+		}
+		if slices.Contains(voucher.ExcludedCategories, category) {
+			return false, fmt.Errorf("voucher not valid for category: %s", category)
+		}
+	}
+
+	return true, nil
 }
