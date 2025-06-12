@@ -26,7 +26,7 @@ type Voucher struct {
 	Percent            float64
 	ExcludedBrands     []string
 	ExcludedCategories []string
-	AllowedTiers       []string
+	AllowedTiers       []models.BrandTier
 }
 
 var runtimeDB *InMemoryDB
