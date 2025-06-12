@@ -46,7 +46,6 @@ func LoadFakeData() {
 			Percent:            float64(69),
 			ExcludedBrands:     []string{"Nike"},
 			ExcludedCategories: []string{"Shoes"},
-			AllowedTiers:       []models.BrandTier{models.BrandTierBudget, models.BrandTierRegular},
 		},
 	}
 

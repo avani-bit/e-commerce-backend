@@ -29,7 +29,6 @@ type Voucher struct {
 	Percent            float64
 	ExcludedBrands     []string
 	ExcludedCategories []string
-	AllowedTiers       []BrandTier
 }
 
 type CartItem struct {
