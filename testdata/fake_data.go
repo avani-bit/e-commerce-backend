@@ -40,7 +40,7 @@ func LoadFakeData() {
 	}
 
 	// ----- Vouchers -----
-	db.Vouchers = map[string]database.Voucher{
+	db.Vouchers = map[string]models.Voucher{
 		"SUPER69": {
 			Code:               "SUPER69",
 			Percent:            float64(69),
@@ -51,7 +51,7 @@ func LoadFakeData() {
 	}
 
 	// ----- Offers -----
-	db.Offers["brand_puma"] = database.Offer{
+	db.Offers["brand_puma"] = models.Offer{
 		Name:    "Min 40% off on PUMA",
 		Percent: float64(40),
 		Target:  "brand",
@@ -60,7 +60,7 @@ func LoadFakeData() {
 		},
 	}
 
-	db.Offers["category_tshirts"] = database.Offer{
+	db.Offers["category_tshirts"] = models.Offer{
 		Name:    "Extra 10% off on T-shirts",
 		Percent: float64(10),
 		Target:  "category",
@@ -69,7 +69,7 @@ func LoadFakeData() {
 		},
 	}
 
-	db.Offers["bank_icici"] = database.Offer{
+	db.Offers["bank_icici"] = models.Offer{
 		Name:    "ICICI Bank 10% instant discount",
 		Percent: 10.0,
 		Target:  "bank",
