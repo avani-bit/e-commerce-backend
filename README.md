@@ -78,3 +78,35 @@ Populates the in-memory DB with seed data representing realistic e-commerce scen
 - **Min 40% off on PUMA** *(Brand-level offer)*  
 - **Extra 10% off on T-shirts** *(Category-level offer)*  
 - **ICICI Bank 10% instant discount** *(Bank offer)*
+
+
+---
+
+## DiscountService
+
+### Purpose
+Encapsulates all logic related to calculating and validating discounts applied to the cart, including:
+
+- Brand & category-level offers
+- Voucher code validation
+- Bank-specific promotions
+
+### Key Methods
+
+- `CalculateCartDiscounts(ctx, cartItems, customer, paymentInfo)`
+  - Applies layered discounts:
+    1. Brand & Category level
+    2. Valid Voucher Codes
+    3. Bank Offers
+  - Returns final price, applied discounts, and a summary message.
+
+- `ValidateDiscountCode(ctx, code, cartItems, customer)`
+  - Verifies if a voucher is applicable based on:
+    - Brand exclusions
+    - Category restrictions
+    - Customer tier or profile
+
+### Dependencies
+- `internal/models`
+- `internal/database`
+- `repository/discountRepository`
